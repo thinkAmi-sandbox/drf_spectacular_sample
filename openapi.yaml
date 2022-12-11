@@ -23,6 +23,11 @@ paths:
                 items:
                   $ref: '#/components/schemas/Shop'
           description: ''
+      x-amazon-apigateway-integration:
+        type: AWS_PROXY
+        httpMethod: POST
+        uri: arn:aws:lambda:***:***:function:HelloWorld
+        payloadFormatVersion: '1.0'
     post:
       operationId: apiShopsCreate
       tags:
