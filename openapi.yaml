@@ -1,7 +1,9 @@
 openapi: 3.0.3
 info:
-  title: ''
-  version: 0.0.0
+  title: DRF OpenAPI schema
+  version: 0.0.1
+  description: OpenAPI Schema by drf-spectacular
+  termsOfService: https://example.com/term
 paths:
   /api/shops/:
     get:
@@ -199,3 +201,6 @@ components:
       type: apiKey
       in: cookie
       name: sessionid
+servers:
+- url: http://localhost:8000/api/
+  description: 開発環境

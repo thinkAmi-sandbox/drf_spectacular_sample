@@ -135,5 +135,18 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     'CAMELIZE_NAMES': True,
-    'COMPONENT_SPLIT_PATCH': False
+    'COMPONENT_SPLIT_PATCH': False,
+
+    # OpenAPI metadata
+    'TITLE': 'DRF OpenAPI schema',
+    'DESCRIPTION': 'OpenAPI Schema by drf-spectacular',
+    'TOS': 'https://example.com/term',
+    # Statically set schema version. May also be an empty string. When used together with
+    # view versioning, will become '0.0.0 (v2)' for 'v2' versioned requests.
+    # Set VERSION to None if only the request version should be rendered.
+    'VERSION': '0.0.1',
+    # Optional list of servers.
+    # Each entry MUST contain "url", MAY contain "description", "variables"
+    # e.g. [{'url': 'https://example.com/v1', 'description': 'Text'}, ...]
+    'SERVERS': [{'url': 'http://localhost:8000/api/', 'description': '開発環境'}],
 }
