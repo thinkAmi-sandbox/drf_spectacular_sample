@@ -169,6 +169,10 @@ components:
           type: string
           title: 名前
           maxLength: 255
+        size:
+          allOf:
+          - $ref: '#/components/schemas/SizeEnum'
+          title: 規模
         established_at:
           type: string
           format: date-time
@@ -181,6 +185,12 @@ components:
       - id
       - name
       - updated_at
+    SizeEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      type: integer
   securitySchemes:
     basicAuth:
       type: http
