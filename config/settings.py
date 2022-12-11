@@ -149,4 +149,8 @@ SPECTACULAR_SETTINGS = {
     # Each entry MUST contain "url", MAY contain "description", "variables"
     # e.g. [{'url': 'https://example.com/v1', 'description': 'Text'}, ...]
     'SERVERS': [{'url': 'http://localhost:8000/api/', 'description': '開発環境'}],
+
+    'POSTPROCESSING_HOOKS': [
+        # 'drf_spectacular.hooks.postprocess_schema_enums'
+    ],
 }
