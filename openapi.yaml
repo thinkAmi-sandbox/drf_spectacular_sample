@@ -5,7 +5,7 @@ info:
 paths:
   /api/shops/:
     get:
-      operationId: api_shops_list
+      operationId: apiShopsList
       tags:
       - api
       security:
@@ -22,7 +22,7 @@ paths:
                   $ref: '#/components/schemas/Shop'
           description: ''
     post:
-      operationId: api_shops_create
+      operationId: apiShopsCreate
       tags:
       - api
       requestBody:
@@ -50,7 +50,7 @@ paths:
           description: ''
   /api/shops/{id}/:
     get:
-      operationId: api_shops_retrieve
+      operationId: apiShopsRetrieve
       parameters:
       - in: path
         name: id
@@ -72,7 +72,7 @@ paths:
                 $ref: '#/components/schemas/Shop'
           description: ''
     put:
-      operationId: api_shops_update
+      operationId: apiShopsUpdate
       parameters:
       - in: path
         name: id
@@ -106,7 +106,7 @@ paths:
                 $ref: '#/components/schemas/Shop'
           description: ''
     patch:
-      operationId: api_shops_partial_update
+      operationId: apiShopsPartialUpdate
       parameters:
       - in: path
         name: id
@@ -139,7 +139,7 @@ paths:
                 $ref: '#/components/schemas/Shop'
           description: ''
     delete:
-      operationId: api_shops_destroy
+      operationId: apiShopsDestroy
       parameters:
       - in: path
         name: id
