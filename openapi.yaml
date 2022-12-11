@@ -120,13 +120,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedShop'
+              $ref: '#/components/schemas/Shop'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedShop'
+              $ref: '#/components/schemas/Shop'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedShop'
+              $ref: '#/components/schemas/Shop'
+        required: true
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -158,24 +159,6 @@ paths:
           description: No response body
 components:
   schemas:
-    PatchedShop:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          title: 名前
-          maxLength: 255
-        established_at:
-          type: string
-          format: date-time
-          title: 設立日時
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
     Shop:
       type: object
       properties:
