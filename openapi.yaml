@@ -164,8 +164,37 @@ paths:
       responses:
         '204':
           description: No response body
+  /api/shops/message/:
+    get:
+      operationId: shopStatus
+      description: actionデコレータ分
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              examples:
+                例:
+                  value:
+                  - message: open
+                  - message: close
+          description: レスポンス型
 components:
   schemas:
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
     Shop:
       type: object
       properties:
