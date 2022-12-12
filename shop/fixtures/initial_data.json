@@ -52,5 +52,29 @@
       "name": "リップストア",
       "company": 2
     }
+  },
+  {
+    "model": "shop.Apple",
+    "pk": 1,
+    "fields": {
+      "name": "彩香",
+      "shops": [1]
+    }
+  },
+  {
+    "model": "shop.Apple",
+    "pk": 2,
+    "fields": {
+      "name": "シナノゴールド",
+      "shops": [2]
+    }
+  },
+  {
+    "model": "shop.Apple",
+    "pk": 3,
+    "fields": {
+      "name": "フジ",
+      "shops": [1, 2]
+    }
   }
 ]

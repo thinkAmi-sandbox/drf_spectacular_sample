@@ -15,7 +15,11 @@ parent_router.register(r'companies', views.CompanyViewSet)
 nest_shop_router = nest_routers.NestedSimpleRouter(parent_router, r'companies', lookup='company')
 nest_shop_router.register(r'shops', views.NestedShopViewSet, basename='company-shops')
 
+m2m_router = nest_routers.NestedSimpleRouter(nest_shop_router, r'shops', lookup='shop')
+m2m_router.register(r'apples', views.M2MAppleViewSet, basename='company-shops-apples')
+
 urlpatterns = [
     path('', include(router.urls)),
     path(r'', include(nest_shop_router.urls)),
+    path(r'', include(m2m_router.urls)),
 ]

@@ -1,7 +1,7 @@
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
-from shop.models import Shop
+from shop.models import Shop, Apple
 
 
 @extend_schema_field({
@@ -35,3 +35,11 @@ class NestedShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
         fields = ['id', 'name', 'size', 'established_at', 'updated_at', 'company']
+
+
+class M2MAppleSerializer(serializers.ModelSerializer):
+    shops = NestedShopSerializer(many=True)
+
+    class Meta:
+        model = Apple
+        fields = ['id', 'name', 'shops']

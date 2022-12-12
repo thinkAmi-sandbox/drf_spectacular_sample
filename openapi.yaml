@@ -32,6 +32,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/NestedShop'
           description: ''
+  /api/companies/{companyPk}/shops/{shopPk}/apples/{id}/:
+    get:
+      operationId: companiesShopsApplesRetrieve
+      parameters:
+      - in: path
+        name: companyPk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this apple.
+        required: true
+      - in: path
+        name: shopPk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - companies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/M2MApple'
+          description: ''
   /api/shops/:
     get:
       operationId: shops
@@ -228,6 +261,24 @@ components:
       required:
       - id
       - name
+    M2MApple:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: りんご名
+          maxLength: 255
+        shops:
+          type: array
+          items:
+            $ref: '#/components/schemas/NestedShop'
+      required:
+      - id
+      - name
+      - shops
     MessageResponse:
       type: object
       properties:

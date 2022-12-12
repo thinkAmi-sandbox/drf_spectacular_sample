@@ -29,3 +29,8 @@ def fix_updated_at_by_fixture(sender, instance, **kwargs):
 
 
 pre_save.connect(fix_updated_at_by_fixture, sender=Shop)
+
+
+class Apple(models.Model):
+    name = models.CharField('りんご名', max_length=255)
+    shops = models.ManyToManyField(Shop, verbose_name='店')

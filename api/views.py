@@ -4,8 +4,8 @@ from rest_framework import viewsets, serializers, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from api.serializers import ShopSerializer, CompanySerializer, NestedShopSerializer
-from shop.models import Shop, Company
+from api.serializers import ShopSerializer, CompanySerializer, NestedShopSerializer, M2MAppleSerializer
+from shop.models import Shop, Company, Apple
 
 
 @extend_schema_view(
@@ -70,3 +70,18 @@ class NestedShopViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
     def get_queryset(self):
         return Shop.objects.filter(company=self.kwargs['company_pk'])
+
+
+@extend_schema_view(
+    retrieve=extend_schema(
+        parameters=[
+            OpenApiParameter(name='company_pk', location=OpenApiParameter.PATH, type=int),
+            OpenApiParameter(name='shop_pk', location=OpenApiParameter.PATH, type=int)
+        ]
+    ),
+)
+class M2MAppleViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    serializer_class = M2MAppleSerializer
+
+    def get_queryset(self):
+        return Apple.objects.all().prefetch_related('shops').filter(id=self.kwargs.get('pk'))
