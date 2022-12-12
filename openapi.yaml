@@ -5,11 +5,38 @@ info:
   description: OpenAPI Schema by drf-spectacular
   termsOfService: https://example.com/term
 paths:
+  /api/companies/{companyPk}/shops/{id}/:
+    get:
+      operationId: companiesShopsRetrieve
+      parameters:
+      - in: path
+        name: companyPk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - companies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NestedShop'
+          description: ''
   /api/shops/:
     get:
       operationId: shops
       tags:
-      - api
+      - shops
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -29,9 +56,9 @@ paths:
         uri: arn:aws:lambda:***:***:function:HelloWorld
         payloadFormatVersion: '1.0'
     post:
-      operationId: apiShopsCreate
+      operationId: shopsCreate
       tags:
-      - api
+      - shops
       requestBody:
         content:
           application/json:
@@ -57,7 +84,7 @@ paths:
           description: ''
   /api/shops/{id}/:
     get:
-      operationId: apiShopsRetrieve
+      operationId: shopsRetrieve
       parameters:
       - in: path
         name: id
@@ -66,7 +93,7 @@ paths:
         description: A unique integer value identifying this shop.
         required: true
       tags:
-      - api
+      - shops
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -79,7 +106,7 @@ paths:
                 $ref: '#/components/schemas/Shop'
           description: ''
     put:
-      operationId: apiShopsUpdate
+      operationId: shopsUpdate
       parameters:
       - in: path
         name: id
@@ -88,7 +115,7 @@ paths:
         description: A unique integer value identifying this shop.
         required: true
       tags:
-      - api
+      - shops
       requestBody:
         content:
           application/json:
@@ -113,7 +140,7 @@ paths:
                 $ref: '#/components/schemas/Shop'
           description: ''
     patch:
-      operationId: apiShopsPartialUpdate
+      operationId: shopsPartialUpdate
       parameters:
       - in: path
         name: id
@@ -122,7 +149,7 @@ paths:
         description: A unique integer value identifying this shop.
         required: true
       tags:
-      - api
+      - shops
       requestBody:
         content:
           application/json:
@@ -147,7 +174,7 @@ paths:
                 $ref: '#/components/schemas/Shop'
           description: ''
     delete:
-      operationId: apiShopsDestroy
+      operationId: shopsDestroy
       parameters:
       - in: path
         name: id
@@ -156,7 +183,7 @@ paths:
         description: A unique integer value identifying this shop.
         required: true
       tags:
-      - api
+      - shops
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -169,7 +196,7 @@ paths:
       operationId: shopStatus
       description: actionデコレータ分
       tags:
-      - api
+      - shops
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -188,6 +215,19 @@ paths:
           description: レスポンス型
 components:
   schemas:
+    Company:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: 名前
+          maxLength: 255
+      required:
+      - id
+      - name
     MessageResponse:
       type: object
       properties:
@@ -195,6 +235,43 @@ components:
           type: string
       required:
       - message
+    NestedShop:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: 名前
+          maxLength: 255
+        size:
+          type: integer
+          title: 規模
+          enum:
+          - 1
+          - 2
+          - 3
+          x-enum-varnames:
+          - SMALL
+          - MEDIUM
+          - LARGE
+        established_at:
+          type: string
+          format: date-time
+          title: 設立日時
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        company:
+          $ref: '#/components/schemas/Company'
+      required:
+      - company
+      - id
+      - name
+      - size
+      - updated_at
     Shop:
       type: object
       properties:

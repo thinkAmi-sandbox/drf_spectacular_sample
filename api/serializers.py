@@ -20,3 +20,18 @@ class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
         fields = ['id', 'name', 'size', 'established_at', 'updated_at']
+
+
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Shop
+        fields = ['id', 'name']
+
+
+class NestedShopSerializer(serializers.ModelSerializer):
+    size = SizeField()
+    company = CompanySerializer()
+
+    class Meta:
+        model = Shop
+        fields = ['id', 'name', 'size', 'established_at', 'updated_at', 'company']

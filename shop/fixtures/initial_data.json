@@ -1,0 +1,56 @@
+[
+  {
+    "model": "shop.company",
+    "pk": 1,
+    "fields": {
+      "name": "あおり物産"
+    }
+  },
+  {
+    "model": "shop.company",
+    "pk": 2,
+    "fields": {
+      "name": "シナノ商店"
+    }
+  },
+  {
+    "model": "shop.Shop",
+    "pk": 1,
+    "fields": {
+      "name": "スーパー北紅",
+      "company": 1
+    }
+  },
+  {
+    "model": "shop.Shop",
+    "pk": 2,
+    "fields": {
+      "name": "産直所千雪",
+      "company": 1
+    }
+  },
+  {
+    "model": "shop.Shop",
+    "pk": 3,
+    "fields": {
+      "name": "秋映飯店",
+      "company": 2
+    }
+  },
+  {
+    "model": "shop.Shop",
+    "pk": 4,
+    "fields": {
+      "name": "コンビニ炎舞",
+      "company": 2
+    }
+  },
+  {
+    "model": "shop.Shop",
+    "pk": 5,
+    "fields": {
+      "name": "リップストア",
+      "company": 2
+    }
+  }
+]
