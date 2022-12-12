@@ -65,6 +65,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/M2MApple'
           description: ''
+  /api/exceptions/:
+    get:
+      operationId: exceptionsList
+      tags:
+      - exceptions
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+          description: Error Response Type
   /api/shops/:
     get:
       operationId: shops
@@ -261,6 +277,13 @@ components:
       required:
       - id
       - name
+    ExceptionResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+      - error
     M2MApple:
       type: object
       properties:

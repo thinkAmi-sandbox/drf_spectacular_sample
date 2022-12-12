@@ -8,6 +8,7 @@ app_name = 'api'
 
 router = routers.SimpleRouter()
 router.register('shops', viewset=views.ShopViewSet)
+router.register('exceptions', viewset=views.ExceptionViewSet)
 
 parent_router = nest_routers.SimpleRouter()
 parent_router.register(r'companies', views.CompanyViewSet)

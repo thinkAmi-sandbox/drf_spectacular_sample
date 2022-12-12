@@ -3,6 +3,7 @@ from drf_spectacular.utils import extend_schema, extend_schema_view, inline_seri
 from rest_framework import viewsets, serializers, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.exceptions import bad_request
 
 from api.serializers import ShopSerializer, CompanySerializer, NestedShopSerializer, M2MAppleSerializer
 from shop.models import Shop, Company, Apple
@@ -85,3 +86,24 @@ class M2MAppleViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
     def get_queryset(self):
         return Apple.objects.all().prefetch_related('shops').filter(id=self.kwargs.get('pk'))
+
+
+class ExceptionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+
+    @extend_schema(
+        responses={
+            400: OpenApiResponse(
+                response=inline_serializer(
+                    name='ExceptionResponse',
+                    fields={
+                        'error': serializers.CharField(),
+                    },
+                ),
+                description='Error Response Type'
+            )
+        },
+    )
+    def list(self, request, *args, **kwargs):
+        return bad_request(request=request, exception=kwargs.get('exception'))
