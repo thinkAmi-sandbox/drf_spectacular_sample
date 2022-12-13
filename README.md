@@ -11,3 +11,4 @@
 
 ## Related Blog (Written in Japanese)
 
+- [drf-spectacularを使って、Django REST frameworkの実装からOpenAPI 3.0系のスキーマを生成する - メモ的な思考的な](https://thinkami.hatenablog.com/entry/2022/12/13/215625)
