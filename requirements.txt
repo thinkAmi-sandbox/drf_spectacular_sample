@@ -1,0 +1,15 @@
+action==1.4.4
+asgiref==3.5.2
+attrs==22.1.0
+Django==4.1.4
+djangorestframework==3.14.0
+drf-nested-routers==0.93.4
+drf-spectacular==0.24.2
+inflection==0.5.1
+jsonschema==4.17.3
+mixins==0.1.4
+pyrsistent==0.19.2
+pytz==2022.6
+PyYAML==6.0
+sqlparse==0.4.3
+uritemplate==4.1.1

@@ -1,0 +1,393 @@
+openapi: 3.0.3
+info:
+  title: DRF OpenAPI schema
+  version: 0.0.1
+  description: OpenAPI Schema by drf-spectacular
+  termsOfService: https://example.com/term
+paths:
+  /api/companies/{companyPk}/shops/{id}/:
+    get:
+      operationId: companiesShopsRetrieve
+      parameters:
+      - in: path
+        name: companyPk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - companies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NestedShop'
+          description: ''
+  /api/companies/{companyPk}/shops/{shopPk}/apples/{id}/:
+    get:
+      operationId: companiesShopsApplesRetrieve
+      parameters:
+      - in: path
+        name: companyPk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this apple.
+        required: true
+      - in: path
+        name: shopPk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - companies
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/M2MApple'
+          description: ''
+  /api/exceptions/:
+    get:
+      operationId: exceptionsList
+      tags:
+      - exceptions
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+          description: Error Response Type
+  /api/shops/:
+    get:
+      operationId: shops
+      tags:
+      - shops
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shop'
+          description: ''
+      x-amazon-apigateway-integration:
+        type: AWS_PROXY
+        httpMethod: POST
+        uri: arn:aws:lambda:***:***:function:HelloWorld
+        payloadFormatVersion: '1.0'
+    post:
+      operationId: shopsCreate
+      tags:
+      - shops
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Shop'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Shop'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Shop'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+          description: ''
+  /api/shops/{id}/:
+    get:
+      operationId: shopsRetrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this shop.
+        required: true
+      tags:
+      - shops
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+          description: ''
+    put:
+      operationId: shopsUpdate
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this shop.
+        required: true
+      tags:
+      - shops
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Shop'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Shop'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Shop'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+          description: ''
+    patch:
+      operationId: shopsPartialUpdate
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this shop.
+        required: true
+      tags:
+      - shops
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Shop'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Shop'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Shop'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+          description: ''
+    delete:
+      operationId: shopsDestroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this shop.
+        required: true
+      tags:
+      - shops
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/shops/message/:
+    get:
+      operationId: shopStatus
+      description: actionデコレータ分
+      tags:
+      - shops
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              examples:
+                例:
+                  value:
+                  - message: open
+                  - message: close
+          description: レスポンス型
+components:
+  schemas:
+    Company:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: 名前
+          maxLength: 255
+      required:
+      - id
+      - name
+    ExceptionResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+      - error
+    M2MApple:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: りんご名
+          maxLength: 255
+        shops:
+          type: array
+          items:
+            $ref: '#/components/schemas/NestedShop'
+      required:
+      - id
+      - name
+      - shops
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    NestedShop:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: 名前
+          maxLength: 255
+        size:
+          type: integer
+          title: 規模
+          enum:
+          - 1
+          - 2
+          - 3
+          x-enum-varnames:
+          - SMALL
+          - MEDIUM
+          - LARGE
+        established_at:
+          type: string
+          format: date-time
+          title: 設立日時
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        company:
+          $ref: '#/components/schemas/Company'
+      required:
+      - company
+      - id
+      - name
+      - size
+      - updated_at
+    Shop:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: 名前
+          maxLength: 255
+        size:
+          type: integer
+          title: 規模
+          enum:
+          - 1
+          - 2
+          - 3
+          x-enum-varnames:
+          - SMALL
+          - MEDIUM
+          - LARGE
+        established_at:
+          type: string
+          format: date-time
+          title: 設立日時
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - id
+      - name
+      - size
+      - updated_at
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+servers:
+- url: http://localhost:8000/api/
+  description: 開発環境
